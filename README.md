@@ -1,6 +1,6 @@
-# Nuxt 3 Minimal Starter
+# Vue Type Rush
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A simple web-based tool designed to help users improve their typing speed and accuracy. Built using Vue, Nuxt and tailwind.
 
 ## Setup
 
@@ -71,5 +71,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
