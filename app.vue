@@ -46,8 +46,11 @@ const typedCharacters = computed(() => {
 
 <template>
   <div
-    class="bg-zinc-800 h-screen whitespace-normal text-2xl md:text-3xl leading-10 md:leading-relaxed sm:flex sm:items-center"
+    class="h-screen whitespace-normal text-2xl md:text-3xl leading-10 md:leading-relaxed sm:flex sm:items-center"
   >
+    <ClientOnly>
+      <ArtDot />
+    </ClientOnly>
     <div class="container mx-auto p-6">
       <nav class="flex gap-4 mb-8">
         <Timer :timer="30" :start="isFocused" @time-up="blurInput" />
