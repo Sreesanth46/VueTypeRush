@@ -14,6 +14,9 @@ importers:
       nuxt:
         specifier: ^3.12.4
         version: 3.12.4(@parcel/watcher@2.4.1)(@types/node@20.14.12)(ioredis@5.4.1)(magicast@0.3.4)(rollup@4.19.1)(terser@5.31.3)(vite@5.3.5(@types/node@20.14.12)(terser@5.31.3))
+      p5i:
+        specifier: ^0.5.0
+        version: 0.5.0
       vue:
         specifier: latest
         version: 3.4.34
@@ -996,6 +999,9 @@ packages:
 
   '@types/node@20.14.12':
     resolution: {integrity: sha512-r7wNXakLeSsGT0H1AU863vS2wa5wBOK4bWMjZz2wj+8nBx+m5PeIn0k8AloSLpRuiwdRQZwarZqHE4FNArPuJQ==}
+
+  '@types/p5@1.7.6':
+    resolution: {integrity: sha512-6pLTOo0V3N5jZb5nTwjiv3lPHLK3Z/TjbhQUj8CTWXocUk1Z/f6OHTp3Pcwi1BhWnf5gqKUcyEb1gP0KIJuQgw==}
 
   '@types/resolve@1.20.2':
     resolution: {integrity: sha512-60BCwRFOZCQhDncwQdxxeOEEkbc5dIMccYLwbxsS4TUNeVECQ/pBJ0j09mrHOl/JJvpRPGwO9SvE4nR2Nb/a4Q==}
@@ -2485,6 +2491,12 @@ packages:
   openapi-typescript@6.7.6:
     resolution: {integrity: sha512-c/hfooPx+RBIOPM09GSxABOZhYPblDoyaGhqBkD/59vtpN21jEuWKDlM0KYTvqJVlSYjKs0tBcIdeXKChlSPtw==}
     hasBin: true
+
+  p5@1.9.4:
+    resolution: {integrity: sha512-dhiZ9mvXx5pm8eRwml34xbeUwce4uS9Q2za0YOHg2p97N9iNAb5hTIHAt77CHKHXAh6A16u/oalz5egRfTyFWw==}
+
+  p5i@0.5.0:
+    resolution: {integrity: sha512-ahLCSoab5pD6fCpqxLcXhDPyDIrJHQpeGDeC4RDouflWJuXi0LVsGjbwS/ODLkpXRfLTHzV6C9t32kz3iMuPBA==}
 
   package-json-from-dist@1.0.0:
     resolution: {integrity: sha512-dATvCeZN/8wQsGywez1mzHtTlP22H8OEfPrVMLNr4/eGa+ijtLn/6M5f0dY8UKNrC2O9UCU6SSoG3qRKnt7STw==}
@@ -4455,6 +4467,8 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
+  '@types/p5@1.7.6': {}
+
   '@types/resolve@1.20.2': {}
 
   '@types/web-bluetooth@0.0.20': {}
@@ -6237,6 +6251,13 @@ snapshots:
       supports-color: 9.4.0
       undici: 5.28.4
       yargs-parser: 21.1.1
+
+  p5@1.9.4: {}
+
+  p5i@0.5.0:
+    dependencies:
+      '@types/p5': 1.7.6
+      p5: 1.9.4
 
   package-json-from-dist@1.0.0: {}
 
