@@ -5,7 +5,7 @@ const sentence =
 const typed = ref("");
 const inputRef = ref<HTMLInputElement | null>(null);
 const isFocused = ref(false);
-const mistake = ref(0);
+const mistakes = ref(0);
 
 onStartTyping(() => {
   focusInput();
@@ -49,9 +49,11 @@ const typedCharacters = computed(() => {
     class="bg-zinc-800 h-screen whitespace-normal text-2xl md:text-3xl leading-10 md:leading-relaxed sm:flex sm:items-center"
   >
     <div class="container mx-auto p-6">
-      <nav class="flex gap-4">
+      <nav class="flex gap-4 mb-8">
         <Timer :timer="30" :start="isFocused" @time-up="blurInput" />
-        <p>Mistakes: {{ mistake }}</p>
+        <p :class="[mistakes > 0 ? 'text-red-200' : 'text-white']">
+          Mistakes: {{ mistakes }}
+        </p>
       </nav>
       <Char
         class="transition-colors duration-300"
@@ -59,7 +61,7 @@ const typedCharacters = computed(() => {
         :key="char"
         :actual="char"
         :typed="typedCharacters?.[charIndex]"
-        @mistake="mistake++"
+        @mistake="mistakes++"
       />
       <input
         type="text"
