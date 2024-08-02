@@ -46,7 +46,7 @@ const typedCharacters = computed(() => {
 
 <template>
   <div
-    class="h-screen whitespace-normal text-2xl md:text-3xl leading-10 md:leading-relaxed sm:flex sm:items-center"
+    class="h-screen whitespace-normal text-2xl md:text-3xl leading-10 md:leading-relaxed sm:flex sm:items-center select-none"
   >
     <ArtDot />
     <div class="container mx-auto p-6">
@@ -70,6 +70,7 @@ const typedCharacters = computed(() => {
         ref="inputRef"
         :value="typed"
         @input="handleInput"
+        @paste.prevent
       />
     </div>
   </div>
