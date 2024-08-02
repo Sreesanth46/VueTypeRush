@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-const sentence =
-  "React's influence on front-end development is undeniable, offering a streamlined, efficient approach to user interface creation.";
+const sentence = useSentence();
 const typed = ref("");
 const inputRef = ref<HTMLInputElement | null>(null);
 const isFocused = ref(false);
