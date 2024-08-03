@@ -9,12 +9,12 @@ const emit = defineEmits<{
 }>();
 
 const startRef = toRef(props, "start");
-const counter = useTimer(props.timer, startRef);
+const { counter, isActive } = useTimer(props.timer, startRef);
 
 const countDown = computed(() => {
   const minutes = Math.floor(counter.value / 60);
   const seconds = minutes ? counter.value % 60 : counter.value;
-  const time = `0${minutes} : ${seconds}`;
+  const time = `0${minutes} : ${seconds <= 0 ? `0${seconds}` : seconds}`;
 
   const obj: {
     class: string;
@@ -24,13 +24,13 @@ const countDown = computed(() => {
     time,
   };
 
-  if (counter.value <= 0) {
+  if (counter.value <= 0 && isActive.value) {
     // emits that the counter has reached Zero
     emit("timeUp");
 
     obj.class = "text-red-500 font-bold";
     obj.time = "Time is up!";
-  } else if (counter.value <= 5) {
+  } else if (counter.value <= 5 && isActive.value) {
     obj.class = "text-red-400 animate-ping";
   }
 
