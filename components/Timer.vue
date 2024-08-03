@@ -8,40 +8,38 @@ const emit = defineEmits<{
   timeUp: [];
 }>();
 
-const { counter, pause } = useInterval(1000, {
-  controls: true,
-});
+const startRef = toRef(props, "start");
+const counter = useTimer(props.timer, startRef);
 
 const countDown = computed(() => {
-  if (!props.start && counter.value !== props.timer + 1) {
-    return {
-      class: "text-white",
-      timer: props.timer,
-    };
-  }
+  const minutes = Math.floor(counter.value / 60);
+  const seconds = minutes ? counter.value % 60 : counter.value;
+  const time = `0${minutes} : ${seconds}`;
 
-  const remainingTime = props.timer - counter.value;
+  const obj: {
+    class: string;
+    time: string;
+  } = {
+    class: "text-white",
+    time,
+  };
 
-  if (remainingTime < 0) {
-    pause();
+  if (counter.value <= 0) {
+    // emits that the counter has reached Zero
     emit("timeUp");
-    return {
-      class: "text-red-500 font-bold",
-      timer: "Time is up!",
-    };
-  } else {
-    let styleClass = "text-white";
-    if (remainingTime <= 10) styleClass = "text-red-400 animate-ping";
-    return {
-      class: styleClass,
-      timer: remainingTime,
-    };
+
+    obj.class = "text-red-500 font-bold";
+    obj.time = "Time is up!";
+  } else if (counter.value <= 5) {
+    obj.class = "text-red-400 animate-ping";
   }
+
+  return obj;
 });
 </script>
 
 <template>
   <p :class="countDown.class">
-    {{ countDown.timer }}
+    {{ countDown.time }}
   </p>
 </template>
