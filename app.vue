@@ -6,6 +6,7 @@ const inputRef = ref<HTMLInputElement | null>(null);
 const isFocused = ref(false);
 const mistakes = ref(0);
 const timer = useWordPerMinute(sentence);
+useCalculate(sentence, typed, isFocused);
 
 onStartTyping(() => {
   focusInput();
@@ -15,7 +16,7 @@ const focusInput = () => {
   // if already focused skip
   if (isFocused.value) return;
 
-  if (inputRef.value) {
+  if (inputRef.value && !typed.value) {
     inputRef.value.focus();
     isFocused.value = true;
   }
@@ -41,6 +42,14 @@ const actualCharacters = computed(() => {
 
 const typedCharacters = computed(() => {
   return typed.value.split("");
+});
+
+const hasFinished = computed(() => sentence.localeCompare(typed.value) === 0);
+
+watch(hasFinished, (finished) => {
+  if (finished) {
+    blurInput();
+  }
 });
 </script>
 
