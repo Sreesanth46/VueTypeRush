@@ -5,6 +5,7 @@ const typed = ref("");
 const inputRef = ref<HTMLInputElement | null>(null);
 const isFocused = ref(false);
 const mistakes = ref(0);
+const timer = useWordPerMinute(sentence);
 
 onStartTyping(() => {
   focusInput();
@@ -50,7 +51,7 @@ const typedCharacters = computed(() => {
     <ArtDot />
     <div class="container mx-auto p-6">
       <nav class="flex gap-4 mb-8">
-        <Timer :timer="30" :start="isFocused" @time-up="blurInput" />
+        <Timer :timer="timer" :start="isFocused" @time-up="blurInput" />
         <p :class="[mistakes > 0 ? 'text-red-200' : 'text-white']">
           Mistakes: {{ mistakes }}
         </p>
