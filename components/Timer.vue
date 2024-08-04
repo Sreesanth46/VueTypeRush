@@ -9,7 +9,8 @@ const emit = defineEmits<{
 }>();
 
 const startRef = toRef(props, "start");
-const { counter, isActive } = useTimer(props.timer, startRef);
+const timerRef = toRef(props, "timer");
+const { counter, isActive } = useTimer(timerRef, startRef);
 
 const countDown = computed(() => {
   const minutes = Math.floor(counter.value / 60);
