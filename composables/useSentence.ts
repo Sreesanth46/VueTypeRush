@@ -9,17 +9,26 @@ const randomLevel = (): TLevels => {
   return levels[randomIndex(levels.length)];
 };
 
-export const useSentence = (level: TLevels = randomLevel()) => {
-  const sentences = Sentences[level];
+export const useSentence = (level: Ref<TLevels | "random">) => {
+  const getSentence = () => {
+    const _level = level.value === "random" ? randomLevel() : level.value;
+    const sentences = Sentences[_level];
 
-  let ri = randomIndex(sentences.length);
-  const random = useStorage("random", ri);
+    let ri = randomIndex(sentences.length);
+    const random = useStorage("random", ri);
 
-  while (random.value === ri) {
-    ri = randomIndex(sentences.length);
-  }
+    while (random.value === ri) {
+      ri = randomIndex(sentences.length);
+    }
 
-  random.value = ri;
+    random.value = ri;
+    return sentences[random.value];
+  };
 
-  return sentences[random.value];
+  const sentence = ref(getSentence());
+  watch(level, () => {
+    sentence.value = getSentence();
+  });
+
+  return sentence;
 };

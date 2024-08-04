@@ -8,9 +8,14 @@
  *          - counter: A reactive reference to the current time left (in seconds)
  *          - isActive: A boolean indicating whether the timer is active or not.
  */
-export const useTimer = (seconds: number, ready: Ref<boolean>) => {
-  const counter = ref(seconds);
+export const useTimer = (seconds: Ref<number>, ready: Ref<boolean>) => {
+  const counter = ref(seconds.value);
   const isActive = ref(false);
+
+  watch(seconds, () => {
+    clean();
+    counter.value = seconds.value;
+  });
 
   let timer: ReturnType<typeof setInterval> | null = null;
 
