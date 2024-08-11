@@ -10,12 +10,12 @@
  * const timeToType = useTypingTime(sentence, 60);
  *
  */
-export const useWordPerMinute = (sentence: string, wpm?: number) => {
-  const words = sentence.split(" ");
-  const totalWords = words.length;
-  // use the parameter wpm if available
-  const wordsPerMinute = wpm ? wpm : useLocalStorage("wpm", 30);
-  const wps = toValue(wordsPerMinute) / 60; // word per second
+export const useWordPerMinute = (sentence: Ref<string>, wpm: Ref<number>) => {
+  return computed(() => {
+    const words = sentence.value.split(" ");
+    const totalWords = words.length;
+    const wps = wpm.value / 60; // word per second
 
-  return computed(() => Math.ceil(totalWords / wps));
+    return Math.ceil(totalWords / wps);
+  });
 };

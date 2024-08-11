@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-const sentence = useSentence();
 const typed = ref("");
 const inputRef = ref<HTMLInputElement | null>(null);
 const isFocused = ref(false);
 const mistakes = ref(0);
-const timer = useWordPerMinute(sentence);
-useCalculate(sentence, typed, isFocused);
+const { wpm, level } = useSettings();
+const sentence = useSentence(level);
+const timer = useWordPerMinute(sentence, wpm);
+useCalculate(sentence.value, typed, isFocused);
 
 onStartTyping(() => {
   focusInput();
@@ -37,14 +38,16 @@ const handleInput = (event: Event) => {
 };
 
 const actualCharacters = computed(() => {
-  return sentence.split("");
+  return sentence.value.split("").map((char, index) => ({ char, index }));
 });
 
 const typedCharacters = computed(() => {
   return typed.value.split("");
 });
 
-const hasFinished = computed(() => sentence.localeCompare(typed.value) === 0);
+const hasFinished = computed(
+  () => sentence.value.localeCompare(typed.value) === 0
+);
 
 watch(hasFinished, (finished) => {
   if (finished) {
@@ -57,6 +60,7 @@ watch(hasFinished, (finished) => {
   <div
     class="h-screen whitespace-normal text-2xl md:text-3xl leading-10 md:leading-relaxed sm:flex sm:items-center select-none"
   >
+    <Header v-model:wpm="wpm" v-model:level="level" />
     <ArtDot />
     <div class="container mx-auto p-6">
       <nav class="flex gap-4 mb-8">
@@ -67,8 +71,8 @@ watch(hasFinished, (finished) => {
       </nav>
       <Char
         class="transition-colors duration-300"
-        v-for="(char, charIndex) in actualCharacters"
-        :key="char"
+        v-for="{ char, index: charIndex } in actualCharacters"
+        :key="charIndex"
         :actual="char"
         :typed="typedCharacters?.[charIndex]"
         @mistake="mistakes++"
