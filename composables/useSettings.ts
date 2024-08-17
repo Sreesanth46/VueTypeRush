@@ -42,11 +42,16 @@ export const useSettings = () => {
     calculateTime();
     settings.typed = "";
     settings.mistakes = 0;
+    settings.isFocused = false;
   });
 
   watch(level, () => {
-    settings.sentence = getSentence();
+    reset();
   });
+
+  const reset = () => {
+    settings.sentence = getSentence();
+  };
 
   const calculateTime = () => {
     const words = settings.sentence.split(" ");
@@ -106,5 +111,6 @@ export const useSettings = () => {
     timer: readonly(settingsAsRefs.timer),
     wpm,
     level,
+    reset,
   };
 };

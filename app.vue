@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import ThunderSkullIcon from "~/components/icons/ThunderSkullIcon";
+
 const inputRef = ref<HTMLInputElement | null>(null);
-const { sentence, timer, typed, isFocused, wpm, level, mistakes } =
+const { sentence, timer, typed, isFocused, wpm, level, mistakes, reset } =
   useSettings();
 
 onStartTyping(() => {
@@ -55,13 +57,16 @@ watch(hasFinished, (finished) => {
   <div
     class="h-screen whitespace-normal text-2xl md:text-3xl leading-10 md:leading-relaxed sm:flex sm:items-center select-none"
   >
-    <Header v-model:wpm="wpm" v-model:level="level" />
+    <Header v-model:wpm="wpm" v-model:level="level" @retry="reset" />
     <ArtDot />
     <div class="container mx-auto p-6">
       <nav class="flex gap-4 mb-8">
         <Timer :timer="timer" :start="isFocused" @time-up="blurInput" />
-        <p :class="[mistakes > 0 ? 'text-red-200' : 'text-white']">
-          Mistakes: {{ mistakes }}
+        <p
+          class="ml-4 flex gap-2 items-center"
+          :class="[mistakes > 0 ? 'text-red-200' : 'text-white']"
+        >
+          <ThunderSkullIcon /> Mistakes : {{ mistakes }}
         </p>
       </nav>
       <Char
