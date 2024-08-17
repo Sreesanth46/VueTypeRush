@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import AlarmClockIcon from "~/components/icons/AlarmClockIcon";
+
 const props = defineProps<{
   timer: number;
   start: boolean;
@@ -40,7 +42,10 @@ const countDown = computed(() => {
 </script>
 
 <template>
-  <p :class="countDown.class">
-    {{ countDown.time }}
-  </p>
+  <div class="flex items-center gap-2">
+    <AlarmClockIcon />
+    <p :class="countDown.class">
+      {{ countDown.time }}
+    </p>
+  </div>
 </template>

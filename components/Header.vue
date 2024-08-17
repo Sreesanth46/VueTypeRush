@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import GreaterThanIcon from "~/components/icons/GreaterThanIcon";
 import LessThanIcon from "~/components/icons/LessThanIcon";
+import ClockwiseIcon from "~/components/icons/ClockwiseIcon";
 
 defineProps<{
   level: string;
   wpm: number;
 }>();
 
-defineEmits(["update:level", "update:wpm"]);
+defineEmits(["update:level", "update:wpm", "retry"]);
 
 const levels = ["random", "beginner", "intermediate", "advanced", "expert"];
 
@@ -47,6 +48,12 @@ const IconButton = h("button", {
           <GreaterThanIcon />
         </IconButton>
       </div>
+
+      <ClockwiseIcon
+        class="text-black"
+        title="Play Again"
+        @click="$emit('retry')"
+      />
     </header>
   </div>
 </template>
