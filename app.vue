@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
-const typed = ref("");
 const inputRef = ref<HTMLInputElement | null>(null);
-const isFocused = ref(false);
-const mistakes = ref(0);
-const { wpm, level } = useSettings();
-const sentence = useSentence(level);
-const timer = useWordPerMinute(sentence, wpm);
-useCalculate(sentence.value, typed, isFocused);
+const { sentence, timer, typed, isFocused, wpm, level, mistakes } =
+  useSettings();
 
 onStartTyping(() => {
   focusInput();
